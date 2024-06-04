@@ -48,7 +48,7 @@ fn _mmap_single_column<'a>(
     let (start, len) = meta.byte_range();
     let chunk = match store {
         ColumnStore::Local(mem_slice) => mem_slice.slice((start as usize)..(start + len) as usize),
-        #[cfg(all(feature = "async", feature = "parquet"))]
+        #[cfg(all(feature = "async", feature = "polars-parquet"))]
         ColumnStore::Fetched(fetched) => {
             let entry = fetched.get(&start).unwrap_or_else(|| {
                 panic!(
