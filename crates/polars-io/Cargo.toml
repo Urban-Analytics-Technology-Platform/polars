@@ -101,7 +101,22 @@ dtype-struct = ["polars-core/dtype-struct"]
 dtype-decimal = ["polars-core/dtype-decimal", "polars-json?/dtype-decimal"]
 fmt = ["polars-core/fmt"]
 lazy = []
-parquet = ["polars-parquet", "polars-parquet/compression"]
+# Testing features that compile to wasm32-unknown-unknown.
+# See issue: https://github.com/pola-rs/polars/issues/16729
+# and basing on related PR:
+# https://github.com/pola-rs/polars/pull/16731
+#
+# Compile to wasm: Err
+# parquet = ["polars-parquet", "polars-parquet/compression"]
+# Compile to wasm: Ok
+parquet = [
+  "polars-parquet",
+  "polars-parquet/snappy",
+  "polars-parquet/gzip",
+  "polars-parquet/zstd",
+  "polars-parquet/brotli",
+  # "polars-parquet/lz4"
+]
 async = [
   "async-trait",
   "futures",
